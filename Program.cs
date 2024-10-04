@@ -11,6 +11,17 @@ builder.Services.AddTransient<DbConnectionFactory>(sp =>
     return new DbConnectionFactory(connectionString);
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazorApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:5073") 
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();  // Optional if you're using cookies or authentication
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddTransient<IClientRepository, ClientRepository>();
 builder.Services.AddTransient<IAddressRepository, AddressRepository>();
@@ -25,6 +36,9 @@ app.UseRouting();
 app.UseAuthorization();
 //app.MapRazorPages();
 app.MapControllers();
+
+// Enable CORS
+app.UseCors("AllowBlazorApp");
 
 
 app.Run();
