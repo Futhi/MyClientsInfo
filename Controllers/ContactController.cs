@@ -29,10 +29,14 @@ namespace MyClientsInfo.Controllers
 
         // Add a new contact
         [HttpPost("AddContact")]
-        public IActionResult AddContact([FromBody] Contact contact)
+        public IActionResult AddContact(List<Contact> contacts)
         {
-            _contactRepository.AddContact(contact);
-            return Ok("Contact added successfully.");
+            foreach (var contact in contacts)
+            {
+                _contactRepository.AddContact(contact);
+            }
+            
+            return Ok("Contact(s) added successfully.");
         }
 
         // Update an existing contact

@@ -29,9 +29,13 @@ namespace MyClientsInfo.Controllers
 
         // Add a new address
         [HttpPost("AddAddress")]
-        public IActionResult AddAddress(Address address)
+        public IActionResult AddAddress(List<Address> addresses)
         {
-            _addressRepository.AddAddress(address);
+            foreach(var address in addresses)
+            {
+                _addressRepository.AddAddress(address);
+            }
+            
             return Ok("Address added successfully.");
         }
 

@@ -1,5 +1,4 @@
 using ClientManagementService;
-using DataAccessLayer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +17,7 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://localhost:5073") 
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials();  // Optional if you're using cookies or authentication
+              .AllowCredentials(); 
     });
 });
 
